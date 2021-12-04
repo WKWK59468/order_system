@@ -22,7 +22,7 @@ app.use("/api", index);
 
 const server = http.createServer(app);
 
-server.listen(80);
+server.listen(4000);
 
 server.on('listening', () => {
     const addr = server.address();
