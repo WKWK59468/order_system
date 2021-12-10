@@ -8,16 +8,16 @@ const index = require("./routes/index.js")
 const mongoose = require('mongoose');
 
 const app = express();
-const dbURL = 'mongodb+srv://Jrong:wkwk59468@whatforlunch.3wqy9.mongodb.net/what_for_lunch?retryWrites=true&w=majority'
-
+// const dbURL = 'mongodb+srv://Jrong:wkwk59468@whatforlunch.3wqy9.mongodb.net/what_for_lunch?retryWrites=true&w=majority'
+const dbURL = 'mongodb://weirdooo.nutc.edu.tw:63426/what_for_lunch'
 mongoose.connect(dbURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then((result)=>{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then((result) => {
         console.log('connected to db.');
     })
-    .catch((err)=>{
+    .catch((err) => {
         console.log(err)
     });
 
