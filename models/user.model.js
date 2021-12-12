@@ -22,8 +22,9 @@ const userSchema = new Schema({
     timestamps: true
 })
 
-const User = mongoose.model('user', userSchema,'user');
-//Mongoose#model(name, [schema], [collection], [skipInit])
+userSchema.set('collection', 'user');
+
+const User = mongoose.model('user', userSchema);
 
 const userCollection = {
 
@@ -35,12 +36,52 @@ const userCollection = {
                 email: data.email,
                 password: data.password
             });
-            userData.save()
-            .then((result)=>{
-                resolve(result);
+            User.count({ email: data.email }, (err, res) => {
+                err
+                    ? reject(err)
+                    : (
+                        (res > 0)
+                            ? reject('此email已經被註冊了!')
+                            : userData.save()
+                                .then((result) => {
+                                    resolve(result);
+                                })
+                                .catch((err) => {
+                                    reject(err);
+                                })
+                    )
             })
-            .catch((err)=>{
-                reject(err);
+
+        })
+    },
+    fetchUser: () => {
+        return new Promise((resolve, reject) => {
+            User.find({}, (err, res) => {
+                err
+                    ? reject(err)
+                    : ((res.length < 0)
+                        ? reject("none")
+                        : resolve(res)
+                    );
+            })
+        })
+    },
+    putUser: (data) => {
+        return new Promise((resolve, reject) => {
+
+        })
+    },
+    patchUser: (data) => {
+        return new Promise((resolve, reject) => {
+
+        })
+    },
+    deleteUser: (data) => {
+        return new Promise((resolve, reject) => {
+            User.findOneAndDelete({ email: data.email }, (err, res) => {
+                err
+                    ? reject(err)
+                    : resolve(res);
             })
         })
     }
