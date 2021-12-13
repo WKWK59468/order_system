@@ -21,9 +21,8 @@ class UserController {
                 res.status(myPackage.statusCode.created).json(myPackage.res_type(myPackage.statusCode.created, "OK", body));
             })
             .catch((err) => {
-                (err === '此email已經被註冊了!')
-                    ? res.status(myPackage.statusCode.badRequest).json(myPackage.res_type(myPackage.statusCode.badRequest, err, null))
-                    : res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
+                (err === '此email已經被註冊了!') ?
+                res.status(myPackage.statusCode.badRequest).json(myPackage.res_type(myPackage.statusCode.badRequest, err, null)): res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
             });
     }
     fetchAll = (req, res) => {
@@ -32,16 +31,15 @@ class UserController {
                 res.status(myPackage.statusCode.ok).json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
             })
             .catch((err) => {
-                (err === "NoData")
-                    ? res.status(myPackage.statusCode.noContent).json(myPackage.res_type(myPackage.statusCode.noContent, err, null))
-                    : res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
+                (err === "NoData") ?
+                res.status(myPackage.statusCode.noContent).json(myPackage.res_type(myPackage.statusCode.noContent, err, null)): res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
             });
     }
     putUser = (req, res) => {
         res.status(200).json(myPackage.res_type(200, "", null));
     }
     patchUser = (req, res) => {
-        
+
         res.status(200).json(myPackage.res_type(200, "", null));
     }
     delUser = (req, res) => {
@@ -55,9 +53,8 @@ class UserController {
                 res.status(myPackage.statusCode.ok).json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
             })
             .catch((err) => {
-                (err === "查無此Email")
-                    ? res.status(myPackage.statusCode.badRequest).json(myPackage.res_type(myPackage.statusCode.badRequest, err, null))
-                    : res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
+                (err === "查無此Email") ?
+                res.status(myPackage.statusCode.badRequest).json(myPackage.res_type(myPackage.statusCode.badRequest, err, null)): res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err));
             });
     }
 }
