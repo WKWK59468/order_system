@@ -72,9 +72,6 @@ const userCollection = {
         });
     });
   },
-  putUser: (data) => {
-    return new Promise((resolve, reject) => {});
-  },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
       User.updateOne({

@@ -39,8 +39,16 @@ class UserController {
         res.status(200).json(myPackage.res_type(200, "", null));
     }
     patchUser = (req, res) => {
+        const body = req.body;
+        const email = req.params.email;
 
-        res.status(200).json(myPackage.res_type(200, "", null));
+        userModels.patchUser(email, body)
+            .then((result) => {
+                res.status(myPackage.statusCode.ok).json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
+            })
+            .catch((err) => {
+                res.status(myPackage.statusCode.ServerError).json(myPackage.res_type(myPackage.statusCode.ServerError, "ServerError", err))
+            });
     }
     delUser = (req, res) => {
         const params = req.params;
