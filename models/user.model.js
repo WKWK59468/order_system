@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    nickname: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  nickname: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-}, {
-  timestamps: true,
-  versionKey: false,
-});
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
 userSchema.set("collection", "user");
 
@@ -35,23 +38,23 @@ const userCollection = {
         email: data.email,
         password: data.password,
       });
-      User.count({
+      User.count(
+        {
           email: data.email,
         },
         (err, res) => {
           err
-            ?
-            reject(err) :
-            res > 0 ?
-            reject("此email已經被註冊了!") :
-            userData
-            .save()
-            .then((result) => {
-              resolve(result);
-            })
-            .catch((err) => {
-              reject(err);
-            });
+            ? reject(err)
+            : res > 0
+            ? reject("此email已經被註冊了!")
+            : userData
+                .save()
+                .then((result) => {
+                  resolve(result);
+                })
+                .catch((err) => {
+                  reject(err);
+                });
         }
       );
     });
@@ -74,25 +77,31 @@ const userCollection = {
   },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
-      User.updateOne({
-        email: email
-      }, data, (err, res) => {
-        err ? reject(err) : resolve(res);
-      });
+      User.updateOne(
+        {
+          email: email,
+        },
+        data,
+        (err, res) => {
+          err ? reject(err) : resolve(res);
+        }
+      );
     });
   },
   deleteUser: (data) => {
     return new Promise((resolve, reject) => {
-      User.deleteOne({
-        email: data.email
-      }, (err, res) => {
-        err
-          ?
-          reject(err) :
-          res.deletedCount === 0 ?
-          reject("查無此Email") :
-          resolve(res);
-      });
+      User.deleteOne(
+        {
+          email: data.email,
+        },
+        (err, res) => {
+          err
+            ? reject(err)
+            : res.deletedCount === 0
+            ? reject("查無此Email")
+            : resolve(res);
+        }
+      );
     });
   },
 };

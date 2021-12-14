@@ -1,22 +1,22 @@
 module.exports = {
-    statusCode: {
-        "ok": 200,
-        "created": 201,
-        "noContent": 204,
-        "badRequest": 400,
-        "unauthorized": 401,
-        "forbidden": 403,
-        "notFound": 404,
-        "ServerError": 500
-    },
-    res_type: (status, message, payload) => {
-        return {
-            "status": status,
-            "message": message,
-            "payload": payload
-        }
-    }
-    /* 範例格式
+  statusCode: {
+    ok: 200,
+    created: 201,
+    noContent: 204,
+    badRequest: 400,
+    unauthorized: 401,
+    forbidden: 403,
+    notFound: 404,
+    ServerError: 500,
+  },
+  res_type: (status, message, payload) => {
+    return {
+      status: status,
+      message: message,
+      payload: payload,
+    };
+  },
+  /* 範例格式
         {
             "status":200,
 
@@ -29,4 +29,4 @@ module.exports = {
             "message":"msgString"
         } 
     */
-}
+};
