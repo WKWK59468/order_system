@@ -66,13 +66,11 @@ const userCollection = {
       });
     });
   },
-  fetchOne: (data) => {
+  fetchOne: (email) => {
     return new Promise((resolve, reject) => {
-      User.find()
-        .$where(`this.email===${data.email}`)
-        .exec((err, res) => {
-          err ? reject(err) : res.length < 0 ? reject("NoData") : resolve(res);
-        });
+      User.findOne({ email: email }, (err, res) => {
+        err ? reject(err) : res ? resolve(res) : reject("NoData");
+      });
     });
   },
   patchUser: (email, data) => {

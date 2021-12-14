@@ -19,56 +19,38 @@ class UserController {
     userModels
       .addUser(data)
       .then((result) => {
-        res
-          .status(myPackage.statusCode.created)
-          .json(myPackage.res_type(myPackage.statusCode.created, "OK", body));
+        res.status(201).json(myPackage.res_type(201, "OK", body));
       })
       .catch((err) => {
         err === "此email已經被註冊了!"
-          ? res
-              .status(myPackage.statusCode.badRequest)
-              .json(
-                myPackage.res_type(myPackage.statusCode.badRequest, err, null)
-              )
-          : res
-              .status(myPackage.statusCode.ServerError)
-              .json(
-                myPackage.res_type(
-                  myPackage.statusCode.ServerError,
-                  "ServerError",
-                  err
-                )
-              );
+          ? res.status(400).json(myPackage.res_type(400, err, null))
+          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
   fetchAll = (req, res) => {
     userModels
       .fetchAll()
       .then((result) => {
-        res
-          .status(myPackage.statusCode.ok)
-          .json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
+        res.status(200).json(myPackage.res_type(200, "OK", result));
       })
       .catch((err) => {
         err === "NoData"
-          ? res
-              .status(myPackage.statusCode.noContent)
-              .json(
-                myPackage.res_type(myPackage.statusCode.noContent, err, null)
-              )
-          : res
-              .status(myPackage.statusCode.ServerError)
-              .json(
-                myPackage.res_type(
-                  myPackage.statusCode.ServerError,
-                  "ServerError",
-                  err
-                )
-              );
+          ? res.status(404).json(myPackage.res_type(404, err, null))
+          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
-  putUser = (req, res) => {
-    res.status(200).json(myPackage.res_type(200, "", null));
+  fetchOne = (req, res) => {
+    const email = req.params.email;
+    userModels
+      .fetchOne(email)
+      .then((result) => {
+        res.status(200).json(myPackage.res_type(200, "OK", result));
+      })
+      .catch((err) => {
+        err === "NoData"
+          ? res.status(404).json(myPackage.res_type(404, err, null))
+          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
+      });
   };
   patchUser = (req, res) => {
     const body = req.body;
@@ -77,20 +59,10 @@ class UserController {
     userModels
       .patchUser(email, body)
       .then((result) => {
-        res
-          .status(myPackage.statusCode.ok)
-          .json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
+        res.status(200).json(myPackage.res_type(200, "OK", result));
       })
       .catch((err) => {
-        res
-          .status(myPackage.statusCode.ServerError)
-          .json(
-            myPackage.res_type(
-              myPackage.statusCode.ServerError,
-              "ServerError",
-              err
-            )
-          );
+        res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
   delUser = (req, res) => {
@@ -102,26 +74,12 @@ class UserController {
     userModels
       .deleteUser(data)
       .then((result) => {
-        res
-          .status(myPackage.statusCode.ok)
-          .json(myPackage.res_type(myPackage.statusCode.ok, "OK", result));
+        res.status(200).json(myPackage.res_type(200, "OK", result));
       })
       .catch((err) => {
         err === "查無此Email"
-          ? res
-              .status(myPackage.statusCode.badRequest)
-              .json(
-                myPackage.res_type(myPackage.statusCode.badRequest, err, null)
-              )
-          : res
-              .status(myPackage.statusCode.ServerError)
-              .json(
-                myPackage.res_type(
-                  myPackage.statusCode.ServerError,
-                  "ServerError",
-                  err
-                )
-              );
+          ? res.status(400).json(myPackage.res_type(400, err, null))
+          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
 }
