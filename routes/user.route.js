@@ -4,7 +4,8 @@ const UserController = require("../controllers/user.controller");
 
 router.post("/", UserController.addUser);
 router.get("/", UserController.fetchAll);
-router.put("/:email", UserController.putUser);
+router.get("/:email", UserController.fetchOne);
+router.patch("/insert/:email",UserController.insertData);
 router.patch("/:email", UserController.patchUser);
 router.delete("/:email", UserController.delUser);
 

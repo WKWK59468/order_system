@@ -46,8 +46,8 @@ const userCollection = {
           err
             ? reject(err)
             : res > 0
-            ? reject("此email已經被註冊了!")
-            : userData
+              ? reject("此email已經被註冊了!")
+              : userData
                 .save()
                 .then((result) => {
                   resolve(result);
@@ -73,6 +73,13 @@ const userCollection = {
       });
     });
   },
+  insertData: (email, data) => {
+    return new Promise((resolve, reject) => {
+      User.findOneAndUpdate({ name: email }, data).exec((err, res) => {
+        err ? reject(err) : resolve(res)
+      })
+    })
+  },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
       User.updateOne(
@@ -96,8 +103,8 @@ const userCollection = {
           err
             ? reject(err)
             : res.deletedCount === 0
-            ? reject("查無此Email")
-            : resolve(res);
+              ? reject("查無此Email")
+              : resolve(res);
         }
       );
     });

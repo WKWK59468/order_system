@@ -52,6 +52,18 @@ class UserController {
           : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
+  insertData = (req, res) => {
+    const email = req.params.email;
+    const body = req.body;
+
+    userModels.insertData(email,body)
+      .then((result) => {
+        res.status(200).json(myPackage.res_type(200, "OK", result))
+      })
+      .catch((err) => {
+        res.status(500).json(myPackage.res_type(500, "ServerError", err))
+      });
+  }
   patchUser = (req, res) => {
     const body = req.body;
     const email = req.params.email;
