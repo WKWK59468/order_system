@@ -3,36 +3,36 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    "name": {
-      "type": String,
-      "required": true,
+    name: {
+      type: String,
+      required: true,
     },
-    "email": {
-      "type": String,
-      "required": true,
+    email: {
+      type: String,
+      required: true,
     },
-    "password": {
-      "type": String,
-      "required": true,
+    password: {
+      type: String,
+      required: true,
     },
-    "role": {
-      "type": String,
-      "default": "user",
-      "required": true,
+    role: {
+      type: String,
+      default: "user",
+      required: true,
     },
-    "group": {
-      "type": String,
+    group: {
+      type: String,
     },
-    "google_ID": {
-      "type": String,
+    google_ID: {
+      type: String,
     },
-    "line_ID": {
-      "type": String,
+    line_ID: {
+      type: String,
     },
   },
   {
-    "timestamps": true,
-    "versionKey": false,
+    timestamps: true,
+    versionKey: false,
   }
 );
 
@@ -44,21 +44,21 @@ const userCollection = {
   addUser: (data) => {
     return new Promise((resolve, reject) => {
       const userData = new User({
-        "name": data.name,
-        "email": data.email,
-        "password": data.password,
-        "role":data.role,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.role,
       });
       User.count(
         {
-          "email": data.email,
+          email: data.email,
         },
         (err, res) => {
           err
             ? reject(err)
             : res > 0
-              ? reject("此email已經被註冊了!")
-              : userData
+            ? reject("此email已經被註冊了!")
+            : userData
                 .save()
                 .then((result) => {
                   resolve(result);
@@ -79,32 +79,34 @@ const userCollection = {
   },
   fetchOne: (email) => {
     return new Promise((resolve, reject) => {
-      User.findOne({ "email": email }, (err, res) => {
+      User.findOne({ email: email }, (err, res) => {
         err ? reject(err) : res ? resolve(res) : reject("查無此Email");
       });
     });
   },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
-      User.updateOne(
-        { "email": email }, data, (err, res) => {
-          err ? reject(err) : res.matchedCount === 0 ? reject("查無此Email"):resolve(res);
-        }
-      );
+      User.updateOne({ email: email }, data, (err, res) => {
+        err
+          ? reject(err)
+          : res.matchedCount === 0
+          ? reject("查無此Email")
+          : resolve(res);
+      });
     });
   },
   deleteUser: (data) => {
     return new Promise((resolve, reject) => {
       User.deleteOne(
         {
-          "email": data.email,
+          email: data.email,
         },
         (err, res) => {
           err
             ? reject(err)
             : res.deletedCount === 0
-              ? reject("查無此Email")
-              : resolve(res);
+            ? reject("查無此Email")
+            : resolve(res);
         }
       );
     });

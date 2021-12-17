@@ -10,10 +10,10 @@ class UserController {
     const role = body.role;
 
     const data = {
-      "name": name,
-      "email": email,
-      "password": password,
-      "role": role,
+      name: name,
+      email: email,
+      password: password,
+      role: role,
     };
 
     userModels
@@ -59,7 +59,7 @@ class UserController {
     userModels
       .patchUser(email, body)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", null))
+        res.status(200).json(myPackage.res_type(200, "OK", null));
       })
       .catch((err) => {
         err === "查無此Email"
@@ -71,7 +71,7 @@ class UserController {
     const params = req.params;
     const email = params.email;
     const data = {
-      "email": email,
+      email: email,
     };
     userModels
       .deleteUser(data)
