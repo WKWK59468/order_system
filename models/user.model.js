@@ -3,25 +3,36 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
+    "name": {
+      "type": String,
+      "required": true,
     },
-    nickname: {
-      type: String,
+    "email": {
+      "type": String,
+      "required": true,
     },
-    email: {
-      type: String,
-      required: true,
+    "password": {
+      "type": String,
+      "required": true,
     },
-    password: {
-      type: String,
-      required: true,
+    "role": {
+      "type": String,
+      "default": "user",
+      "required": true,
+    },
+    "group": {
+      "type": String,
+    },
+    "google_ID": {
+      "type": String,
+    },
+    "line_ID": {
+      "type": String,
     },
   },
   {
-    timestamps: true,
-    versionKey: false,
+    "timestamps": true,
+    "versionKey": false,
   }
 );
 
@@ -75,7 +86,7 @@ const userCollection = {
   },
   insertData: (email, data) => {
     return new Promise((resolve, reject) => {
-      User.findOneAndUpdate({ name: email }, data).exec((err, res) => {
+      User.updateOne({ "email": email }, { $set: data }).exec((err, res) => {
         err ? reject(err) : resolve(res)
       })
     })
