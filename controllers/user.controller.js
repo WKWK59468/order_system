@@ -5,15 +5,13 @@ class UserController {
   addUser = (req, res) => {
     const body = req.body;
     const name = body.name;
-    const nickname = body.nickname;
     const email = body.email;
     const password = body.password;
 
     const data = {
-      name: name,
-      nickname: nickname,
-      email: email,
-      password: password,
+      "name": name,
+      "email": email,
+      "password": password,
     };
 
     userModels
@@ -81,7 +79,7 @@ class UserController {
     const params = req.params;
     const email = params.email;
     const data = {
-      email: email,
+      "email": email,
     };
     userModels
       .deleteUser(data)
