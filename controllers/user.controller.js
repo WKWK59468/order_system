@@ -86,7 +86,7 @@ class UserController {
     userModels
       .deleteUser(data)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", result));
+        res.status(200).json(myPackage.res_type(200, "OK", null));
       })
       .catch((err) => {
         err === "查無此Email"
