@@ -1,5 +1,6 @@
 const userModels = require("../models/user.model");
 const myPackage = require("../function_package");
+const { resolveConfig } = require("prettier");
 
 class UserController {
   addUser = (req, res) => {
@@ -7,11 +8,13 @@ class UserController {
     const name = body.name;
     const email = body.email;
     const password = body.password;
+    const role = body.role;
 
     const data = {
       "name": name,
       "email": email,
       "password": password,
+      "role": role,
     };
 
     userModels
@@ -50,18 +53,6 @@ class UserController {
           : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
-  insertData = (req, res) => {
-    const email = req.params.email;
-    const body = req.body;
-
-    userModels.insertData(email,body)
-      .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", result))
-      })
-      .catch((err) => {
-        res.status(500).json(myPackage.res_type(500, "ServerError", err))
-      });
-  }
   patchUser = (req, res) => {
     const body = req.body;
     const email = req.params.email;

@@ -45,9 +45,9 @@ const userCollection = {
     return new Promise((resolve, reject) => {
       const userData = new User({
         "name": data.name,
-        "nickname": data.nickname, //選填
         "email": data.email,
         "password": data.password,
+        "role":data.role,
       });
       User.count(
         {
@@ -83,13 +83,6 @@ const userCollection = {
         err ? reject(err) : res ? resolve(res) : reject("NoData");
       });
     });
-  },
-  insertData: (email, data) => {
-    return new Promise((resolve, reject) => {
-      User.updateOne({ "email": email }, { $set: data }).exec((err, res) => {
-        err ? reject(err) : resolve(res)
-      })
-    })
   },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
