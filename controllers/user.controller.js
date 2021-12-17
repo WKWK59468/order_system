@@ -1,6 +1,5 @@
 const userModels = require("../models/user.model");
 const myPackage = require("../function_package");
-const { resolveConfig } = require("prettier");
 
 class UserController {
   addUser = (req, res) => {
