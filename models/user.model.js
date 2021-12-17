@@ -88,7 +88,7 @@ const userCollection = {
     return new Promise((resolve, reject) => {
       User.updateOne(
         { "email": email }, data, (err, res) => {
-          err ? reject(err) : resolve(res);
+          err ? reject(err) : res.matchedCount === 0 ? reject("查無此Email"):resolve(res);
         }
       );
     });

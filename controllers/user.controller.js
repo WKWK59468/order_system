@@ -59,10 +59,12 @@ class UserController {
     userModels
       .patchUser(email, body)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", result));
+        res.status(200).json(myPackage.res_type(200, "OK", null))
       })
       .catch((err) => {
-        res.status(500).json(myPackage.res_type(500, "ServerError", err));
+        err === "查無此Email"
+          ? res.status(404).json(myPackage.res_type(200, err, null))
+          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
   delUser = (req, res) => {
