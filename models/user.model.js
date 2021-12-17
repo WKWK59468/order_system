@@ -80,7 +80,7 @@ const userCollection = {
   fetchOne: (email) => {
     return new Promise((resolve, reject) => {
       User.findOne({ "email": email }, (err, res) => {
-        err ? reject(err) : res ? resolve(res) : reject("NoData");
+        err ? reject(err) : res ? resolve(res) : reject("查無此Email");
       });
     });
   },

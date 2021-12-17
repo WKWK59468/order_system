@@ -47,7 +47,7 @@ class UserController {
         res.status(200).json(myPackage.res_type(200, "OK", result));
       })
       .catch((err) => {
-        err === "NoData"
+        err === "查無此Email"
           ? res.status(404).json(myPackage.res_type(404, err, null))
           : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
