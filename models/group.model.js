@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 const groupSchema = new Schema(
     {
@@ -22,7 +22,7 @@ const groupSchema = new Schema(
     }
 );
 
-userSchema.set("collection", "group");
+groupSchema.set("collection", "group");
 
 const Group = mongoose.model("group", groupSchema);
 
@@ -33,9 +33,16 @@ const groupCollection = {
             email: data.email,
             password: data.password,
             role: data.role,
-          });
-        return new Promise((resolve,reject)=>{
+        });
+        return new Promise((resolve, reject) => {
             groupData.set();
+        })
+    },
+    fetchGroup: () => {
+        return new Promise((resolve, reject) => {
+            Group.find({}, (err, res) => {
+                err ? reject(err) : res.length ? resolve(res) : reject("NoData");
+            })
         })
     }
 }
