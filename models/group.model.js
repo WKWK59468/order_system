@@ -11,10 +11,6 @@ const groupSchema = new Schema(
             type: String,
             required: true,
         },
-        time: {
-            type: Date,
-            required: true,
-        },
     },
     {
         timestamps: true,
@@ -28,14 +24,15 @@ const Group = mongoose.model("group", groupSchema);
 
 const groupCollection = {
     addGroup: (data) => {
-        const groupData = new Group({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            role: data.role,
-        });
+        const groupData = new Group(data);
         return new Promise((resolve, reject) => {
-            groupData.set();
+            groupData.save()
+                .then((result) => {
+                    resolve(result)
+                })
+                .catch((err) => {
+                    reject(err)
+                });
         })
     },
     fetchGroup: () => {
