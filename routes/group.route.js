@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const GroupController = require("../controllers/group.controller");
 
-router.get("/", GroupController.fetchGroup);
-// router.get("/:groupName", GroupController.fetchOne);
 router.post("/", GroupController.addGroup);
-// router.patch("/:groupName", GroupController);
+router.get("/", GroupController.fetchAll);
+router.get("/organzier/:organzier", GroupController.fetchOne);
+router.get("/name/:name", GroupController.fetchOne);
+router.patch("/:groupName", GroupController.patchGroup);
 // router.delete("/:groupName", GroupController);
 
 module.exports = router;

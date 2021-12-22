@@ -35,10 +35,36 @@ const groupCollection = {
                 });
         })
     },
-    fetchGroup: () => {
+    fetchAll: () => {
         return new Promise((resolve, reject) => {
             Group.find({}, (err, res) => {
-                err ? reject(err) : res.length ? resolve(res) : reject("NoData");
+                err
+                    ? reject(err)
+                    : res.length
+                        ? resolve(res)
+                        : reject("NoData");
+            })
+        })
+    },
+    fetchOne: (data) => {
+        return new Promise((resolve, reject) => {
+            Group.findOne(data, (err, res) => {
+                err
+                    ? reject(err)
+                    : res
+                        ? resolve(res)
+                        : reject("NoData");
+            })
+        })
+    },
+    patchGroup: (name, data) => {
+        return new Promise((resolve, reject) => {
+            Group.updateOne({ name: name }, data, (err, res) => {
+                err
+                    ? reject(err)
+                    : res.matchedCount === 0
+                        ? reject("查無此團體")
+                        : resolve(res);
             })
         })
     }

@@ -19,8 +19,8 @@ class Group {
                 res.status(500).json(Package.res_type(500, "ServerError", err))
             });
     }
-    fetchGroup = (req, res) => {
-        groupModel.fetchGroup()
+    fetchAll = (req, res) => {
+        groupModel.fetchAll()
             .then((result) => {
                 res.status(200).json(Package.res_type(200, "OK", result));
             })
@@ -29,6 +29,33 @@ class Group {
                     ? res.status(404).json(Package.res_type(404, err, null))
                     : res.status(500).json(Package.res_type(500, "ServerError", err))
             });
+    }
+    fetchOne = (req, res) => {
+        const params = req.params;
+
+        groupModel.fetchOne(params)
+            .then((result) => {
+                res.status(200).json(Package.res_type(200, "OK", result));
+            })
+            .catch((err) => {
+                err === "NoData"
+                    ? res.status(404).json(Package.res_type(404, err, null))
+                    : res.status(500).json(  Package.res_type(500, "ServerError", err));
+            })
+    }
+    patchGroup = (req, res) => {
+        const groupName = req.params.groupName;
+        const body = req.body;
+
+        groupModel.patchGroup(groupName, body)
+            .then((result) => {
+                res.status(200).json(Package.res_type(200, "OK", result));
+            })
+            .catch((err) => {
+                err === "查無此團體"
+                    ? res.status(404).json(Package.res_type(404, err, null))
+                    : res.status(500).json(Package.res_type(500, "ServerError", err));
+            })
     }
 }
 
