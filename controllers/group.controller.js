@@ -40,7 +40,7 @@ class Group {
             .catch((err) => {
                 err === "NoData"
                     ? res.status(404).json(Package.res_type(404, err, null))
-                    : res.status(500).json(  Package.res_type(500, "ServerError", err));
+                    : res.status(500).json(Package.res_type(500, "ServerError", err));
             })
     }
     patchGroup = (req, res) => {
@@ -55,6 +55,22 @@ class Group {
                 err === "查無此團體"
                     ? res.status(404).json(Package.res_type(404, err, null))
                     : res.status(500).json(Package.res_type(500, "ServerError", err));
+            })
+    }
+    deleteGroup = (req, res) => {
+        const params = req.params
+        const data = {
+            name: params.groupName
+        }
+
+        groupModel.deleteGroup(data)
+            .then((result) => {
+                res.status(200).json(Package.res_type(200, "OK", null));
+            })
+            .catch((err) => {
+                err === "查無此團體"
+                ? res.status(400).json(Package.res_type(400, err, null))
+                : res.status(500).json(Package.res_type(500, "ServerError", err));
             })
     }
 }

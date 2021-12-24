@@ -7,6 +7,6 @@ router.get("/", GroupController.fetchAll);
 router.get("/organzier/:organzier", GroupController.fetchOne);
 router.get("/name/:name", GroupController.fetchOne);
 router.patch("/:groupName", GroupController.patchGroup);
-// router.delete("/:groupName", GroupController);
+router.delete("/:groupName", GroupController.deleteGroup);
 
 module.exports = router;

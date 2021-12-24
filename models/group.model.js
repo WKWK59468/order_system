@@ -67,6 +67,17 @@ const groupCollection = {
                         : resolve(res);
             })
         })
+    },
+    deleteGroup: (data) => {
+        return new Promise((resolve, reject) => {
+            Group.deleteOne(data, (err, res) => {
+                err
+                    ? reject(err)
+                    : res.deletedCount === 0
+                        ? reject("查無此團體")
+                        : resolve(res);
+            })
+        })
     }
 }
 
