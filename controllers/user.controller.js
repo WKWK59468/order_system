@@ -19,7 +19,7 @@ class UserController {
     userModels
       .addUser(data)
       .then((result) => {
-        res.status(201).json(myPackage.res_type(201, "OK", body));
+        res.status(201).json(myPackage.res_type(201, "OK", null));
       })
       .catch((err) => {
         err === "此email已經被註冊了!"

@@ -43,12 +43,9 @@ const User = mongoose.model("user", userSchema);
 const userCollection = {
   addUser: (data) => {
     return new Promise((resolve, reject) => {
-      const userData = new User({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        role: data.role,
-      });
+
+      const userData = new User(data);
+
       User.count(
         {
           email: data.email,
