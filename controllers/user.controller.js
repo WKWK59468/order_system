@@ -67,7 +67,7 @@ class UserController {
           : res.status(500).json(myPackage.res_type(500, "ServerError", err));
       });
   };
-  delUser = (req, res) => {
+  deleteUser = (req, res) => {
     const params = req.params;
     const email = params.email;
     const data = {
