@@ -4,7 +4,7 @@ module.exports = {
       status: status,
       message: message,
       payload: payload,
-    };
+    }
   },
   /* 範例格式
           {

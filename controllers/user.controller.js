@@ -1,5 +1,5 @@
-const userModels = require("../models/user.model");
-const myPackage = require("../function_package");
+const userModels = require("../models/user.model")
+const myPackage = require("../function_package")
 
 class UserController {
   addUser = (req, res) => {
@@ -43,14 +43,15 @@ class UserController {
   }
   fetchOne = (req, res) => {
     const email = req.params.email
+
     userModels.fetchOne(email)
       .then((result) => {
         res.status(200).json(myPackage.res_type(200, "OK", result))
       })
       .catch((err) => {
-        if(err === "查無此Email"){
+        if (err === "查無此Email") {
           res.status(404).json(myPackage.res_type(404, err, null))
-        }else{
+        } else {
           res.status(500).json(myPackage.res_type(500, "ServerError", err))
         }
       });
@@ -77,17 +78,19 @@ class UserController {
     const data = {
       email: email,
     }
-    userModels
-      .deleteUser(data)
+    
+    userModels.deleteUser(data)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", null));
+        res.status(200).json(myPackage.res_type(200, "OK", null))
       })
       .catch((err) => {
-        err === "查無此Email"
-          ? res.status(400).json(myPackage.res_type(400, err, null))
-          : res.status(500).json(myPackage.res_type(500, "ServerError", err));
+        if (err === "查無此Email") {
+          res.status(400).json(myPackage.res_type(400, err, null))
+        } else {
+          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+        }
       });
   };
 }
 
-module.exports = new UserController();
+module.exports = new UserController()

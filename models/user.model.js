@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 const userSchema = new Schema(
   {
@@ -36,61 +36,81 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.set("collection", "user");
+userSchema.set("collection", "user")
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema)
 
 const userCollection = {
   addUser: (data) => {
     return new Promise((resolve, reject) => {
 
-      const userData = new User(data);
+      const userData = new User(data)
 
       User.count(
         {
           email: data.email,
         },
         (err, res) => {
-          err
-            ? reject(err)
-            : res > 0
-            ? reject("此email已經被註冊了!")
-            : userData
-                .save()
-                .then((result) => {
-                  resolve(result);
-                })
-                .catch((err) => {
-                  reject(err);
-                });
+          if (err) {
+            reject(err)
+          } else if (res > 0) {
+            reject("此email已經被註冊了!")
+          } else {
+            userData.save()
+              .then((result) => {
+                resolve(result)
+              })
+              .catch((err) => {
+                reject(err)
+              });
+          }
         }
-      );
-    });
+      )
+    })
   },
   fetchAll: () => {
     return new Promise((resolve, reject) => {
       User.find({}, (err, res) => {
-        err ? reject(err) : res.length < 0 ? reject("NoData") : resolve(res);
-      });
-    });
+        if (err) {
+          reject(err)
+        } else if (res.length) {
+          reject("NoData")
+        } else {
+          resolve(res)
+        }
+      })
+    })
   },
   fetchOne: (email) => {
     return new Promise((resolve, reject) => {
       User.findOne({ email: email }, (err, res) => {
-        err ? reject(err) : res ? resolve(res) : reject("查無此Email");
-      });
-    });
+        if (err) {
+          reject(err)
+        } else if (res) {
+          resolve(res)
+        } else {
+          reject("查無此Email")
+        }
+      })
+    })
   },
   patchUser: (email, data) => {
     return new Promise((resolve, reject) => {
-      User.updateOne({ email: email }, data, (err, res) => {
-        err
-          ? reject(err)
-          : res.matchedCount === 0
-          ? reject("查無此Email")
-          : resolve(res);
-      });
-    });
+      User.updateOne(
+        {
+          email: email
+        },
+        data,
+        (err, res) => {
+          if(err){
+            reject(err)
+          }else if(res.matchedCount === 0){
+            reject("查無此Email")
+          }else{
+            resolve(res)
+          }
+        })
+    })
   },
   deleteUser: (data) => {
     return new Promise((resolve, reject) => {
@@ -99,15 +119,17 @@ const userCollection = {
           email: data.email,
         },
         (err, res) => {
-          err
-            ? reject(err)
-            : res.deletedCount === 0
-            ? reject("查無此Email")
-            : resolve(res);
+          if(err){
+            reject(err)
+          }else if(res.deletedCount === 0){
+            reject("查無此Email")
+          }else{
+            resolve(res)
+          }
         }
-      );
-    });
+      )
+    })
   },
-};
+}
 
-module.exports = userCollection;
+module.exports = userCollection

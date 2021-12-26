@@ -1,11 +1,10 @@
-const groupModel = require("../models/group.model");
-const Package = require("../function_package");
+const groupModel = require("../models/group.model")
+const Package = require("../function_package")
 class Group {
     addGroup = (req, res) => {
-        const body = req.body;
-        const name = body.name;
-        const organizer = body.organizer;
-
+        const body = req.body
+        const name = body.name
+        const organizer = body.organizer
         const data = {
             name: name,
             organizer: organizer,
@@ -22,12 +21,14 @@ class Group {
     fetchAll = (req, res) => {
         groupModel.fetchAll()
             .then((result) => {
-                res.status(200).json(Package.res_type(200, "OK", result));
+                res.status(200).json(Package.res_type(200, "OK", result))
             })
             .catch((err) => {
-                err === "NoData"
-                    ? res.status(404).json(Package.res_type(404, err, null))
-                    : res.status(500).json(Package.res_type(500, "ServerError", err))
+                if (err === "NoData") {
+                    res.status(404).json(Package.res_type(404, err, null))
+                } else {
+                    res.status(500).json(Package.res_type(500, "ServerError", err))
+                }
             });
     }
     fetchOne = (req, res) => {
@@ -35,44 +36,50 @@ class Group {
 
         groupModel.fetchOne(params)
             .then((result) => {
-                res.status(200).json(Package.res_type(200, "OK", result));
+                res.status(200).json(Package.res_type(200, "OK", result))
             })
             .catch((err) => {
-                err === "NoData"
-                    ? res.status(404).json(Package.res_type(404, err, null))
-                    : res.status(500).json(Package.res_type(500, "ServerError", err));
+                if (err === "NoData") {
+                    res.status(404).json(Package.res_type(404, err, null))
+                } else {
+                    res.status(500).json(Package.res_type(500, "ServerError", err))
+                }
             })
     }
     patchGroup = (req, res) => {
-        const groupName = req.params.groupName;
-        const body = req.body;
+        const groupName = req.params.groupName
+        const body = req.body
 
         groupModel.patchGroup(groupName, body)
             .then((result) => {
-                res.status(200).json(Package.res_type(200, "OK", result));
+                res.status(200).json(Package.res_type(200, "OK", result))
             })
             .catch((err) => {
-                err === "查無此團體"
-                    ? res.status(404).json(Package.res_type(404, err, null))
-                    : res.status(500).json(Package.res_type(500, "ServerError", err));
+                if (err === "查無此團體") {
+                    res.status(404).json(Package.res_type(404, err, null))
+                } else {
+                    res.status(500).json(Package.res_type(500, "ServerError", err))
+                }
             })
     }
     deleteGroup = (req, res) => {
         const params = req.params
         const data = {
-            name: params.groupName
+            name: params.groupName,
         }
 
         groupModel.deleteGroup(data)
             .then((result) => {
-                res.status(200).json(Package.res_type(200, "OK", null));
+                res.status(200).json(Package.res_type(200, "OK", null))
             })
             .catch((err) => {
-                err === "查無此團體"
-                ? res.status(400).json(Package.res_type(400, err, null))
-                : res.status(500).json(Package.res_type(500, "ServerError", err));
+                if (err === "查無此團體") {
+                    res.status(400).json(Package.res_type(400, err, null))
+                } else {
+                    res.status(500).json(Package.res_type(500, "ServerError", err))
+                }
             })
     }
 }
 
-module.exports = new Group();
+module.exports = new Group()
