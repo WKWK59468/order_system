@@ -63,15 +63,19 @@ const groupCollection = {
     },
     patchGroup: (name, data) => {
         return new Promise((resolve, reject) => {
-            Group.updateOne({ name: name }, data, (err, res) => {
-                if (err) {
-                    reject(err)
-                } else if (res.matchedCount === 0) {
-                    reject("查無此團體")
-                } else {
-                    resolve(res)
+            Group.updateOne(
+                {
+                    name: name
                 }
-            })
+                , data, (err, res) => {
+                    if (err) {
+                        reject(err)
+                    } else if (res.matchedCount === 0) {
+                        reject("查無此團體")
+                    } else {
+                        resolve(res)
+                    }
+                })
         })
     },
     deleteGroup: (data) => {
