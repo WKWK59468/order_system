@@ -74,9 +74,9 @@ const userCollection = {
         if (err) {
           reject(err)
         } else if (res.length) {
-          reject("NoData")
-        } else {
           resolve(res)
+        } else {
+          reject("NoData")
         }
       })
     })
