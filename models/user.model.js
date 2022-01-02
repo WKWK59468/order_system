@@ -34,7 +34,7 @@ const userSchema = new Schema(
     timestamps: true,
     versionKey: false,
   }
-);
+)
 
 userSchema.set("collection", "user")
 
@@ -43,7 +43,6 @@ const User = mongoose.model("user", userSchema)
 const userCollection = {
   addUser: (data) => {
     return new Promise((resolve, reject) => {
-
       const userData = new User(data)
 
       User.count(
@@ -56,13 +55,14 @@ const userCollection = {
           } else if (res > 0) {
             reject("此email已經被註冊了!")
           } else {
-            userData.save()
+            userData
+              .save()
               .then((result) => {
                 resolve(result)
               })
               .catch((err) => {
                 reject(err)
-              });
+              })
           }
         }
       )
@@ -98,18 +98,19 @@ const userCollection = {
     return new Promise((resolve, reject) => {
       User.updateOne(
         {
-          email: email
+          email: email,
         },
         data,
         (err, res) => {
-          if(err){
+          if (err) {
             reject(err)
-          }else if(res.matchedCount === 0){
+          } else if (res.matchedCount === 0) {
             reject("查無此Email")
-          }else{
+          } else {
             resolve(res)
           }
-        })
+        }
+      )
     })
   },
   deleteUser: (data) => {
@@ -119,11 +120,11 @@ const userCollection = {
           email: data.email,
         },
         (err, res) => {
-          if(err){
+          if (err) {
             reject(err)
-          }else if(res.deletedCount === 0){
+          } else if (res.deletedCount === 0) {
             reject("查無此Email")
-          }else{
+          } else {
             resolve(res)
           }
         }

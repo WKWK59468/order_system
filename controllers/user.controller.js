@@ -16,7 +16,8 @@ class UserController {
       role: role,
     }
 
-    userModels.addUser(data)
+    userModels
+      .addUser(data)
       .then((result) => {
         res.status(201).json(myPackage.res_type(201, "OK", null))
       })
@@ -29,7 +30,8 @@ class UserController {
       })
   }
   fetchAll = (req, res) => {
-    userModels.fetchAll()
+    userModels
+      .fetchAll()
       .then((result) => {
         res.status(200).json(myPackage.res_type(200, "OK", result))
       })
@@ -44,7 +46,8 @@ class UserController {
   fetchOne = (req, res) => {
     const email = req.params.email
 
-    userModels.fetchOne(email)
+    userModels
+      .fetchOne(email)
       .then((result) => {
         res.status(200).json(myPackage.res_type(200, "OK", result))
       })
@@ -54,13 +57,14 @@ class UserController {
         } else {
           res.status(500).json(myPackage.res_type(500, "ServerError", err))
         }
-      });
+      })
   }
   patchUser = (req, res) => {
     const body = req.body
     const email = req.params.email
 
-    userModels.patchUser(email, body)
+    userModels
+      .patchUser(email, body)
       .then((result) => {
         res.status(200).json(myPackage.res_type(200, "OK", null))
       })
@@ -78,8 +82,9 @@ class UserController {
     const data = {
       email: email,
     }
-    
-    userModels.deleteUser(data)
+
+    userModels
+      .deleteUser(data)
       .then((result) => {
         res.status(200).json(myPackage.res_type(200, "OK", null))
       })
@@ -89,8 +94,8 @@ class UserController {
         } else {
           res.status(500).json(myPackage.res_type(500, "ServerError", err))
         }
-      });
-  };
+      })
+  }
 }
 
 module.exports = new UserController()
