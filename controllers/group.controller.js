@@ -79,7 +79,7 @@ class Group {
       })
       .catch((err) => {
         if (err === "查無此團體") {
-          res.status(400).json(Package.res_type(400, err, null))
+          res.status(404).json(Package.res_type(404, err, null))
         } else {
           res.status(500).json(Package.res_type(500, "ServerError", err))
         }
