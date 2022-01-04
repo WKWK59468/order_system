@@ -13,7 +13,7 @@ class Group {
     groupModel
       .addGroup(data)
       .then((result) => {
-        res.status(201).json(Package.res_type(201, "OK", result))
+        res.status(201).json(Package.res_type(201, "OK", null))
       })
       .catch((err) => {
         res.status(500).json(Package.res_type(500, "ServerError", err))
@@ -56,7 +56,7 @@ class Group {
     groupModel
       .patchGroup(groupName, body)
       .then((result) => {
-        res.status(200).json(Package.res_type(200, "OK", result))
+        res.status(200).json(Package.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "查無此團體") {
@@ -79,7 +79,7 @@ class Group {
       })
       .catch((err) => {
         if (err === "查無此團體") {
-          res.status(400).json(Package.res_type(400, err, null))
+          res.status(404).json(Package.res_type(404, err, null))
         } else {
           res.status(500).json(Package.res_type(500, "ServerError", err))
         }

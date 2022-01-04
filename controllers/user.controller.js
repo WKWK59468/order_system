@@ -70,7 +70,7 @@ class UserController {
       })
       .catch((err) => {
         if (err === "查無此Email") {
-          res.status(404).json(myPackage.res_type(200, err, null))
+          res.status(404).json(myPackage.res_type(404, err, null))
         } else {
           res.status(500).json(myPackage.res_type(500, "ServerError", err))
         }
@@ -90,7 +90,7 @@ class UserController {
       })
       .catch((err) => {
         if (err === "查無此Email") {
-          res.status(400).json(myPackage.res_type(400, err, null))
+          res.status(404).json(myPackage.res_type(404, err, null))
         } else {
           res.status(500).json(myPackage.res_type(500, "ServerError", err))
         }
