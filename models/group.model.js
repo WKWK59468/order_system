@@ -103,6 +103,35 @@ const groupCollection = {
       })
     })
   },
+  deleteUsers: (groupID, data) => {
+    return new Promise((resolve, reject) => {
+      Group.find({ _id: groupID }, (err, res) => {
+        if (err) {
+          reject(err)
+        } else {
+          const users = res[0].users
+          const array = users
+            .concat(data.users)
+            .filter((element, index, array) => {
+              return array.indexOf(index) !== array.lastIndexOf(index)
+            })
+
+          console.log(array)
+          // Group.findOneAndUpdate(
+          //   { _id: groupID },
+          //   { users: array },
+          //   (error, result) => {
+          //     if (error) {
+          //       reject(error)
+          //     } else {
+          //       resolve(result)
+          //     }
+          //   }
+          // )
+        }
+      })
+    })
+  },
 }
 
 module.exports = groupCollection

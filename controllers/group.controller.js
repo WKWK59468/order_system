@@ -116,6 +116,27 @@ class Group {
         })
     }
   }
+  deleteUsers = (req, res) => {
+    const groupID = req.params.groupID
+    const body = req.body
+
+    const data = {
+      users: body.users,
+    }
+
+    groupModel
+      .deleteUsers(groupID, data)
+      .then((result) => {
+        res.ststus(200).json(Package.res_type(200, "OK", null))
+      })
+      .catch((err) => {
+        if (err === "UpdateError") {
+          res.status(400).json(Package.res_type(400, err, null))
+        } else {
+          res.status(500).json(Package.res_type(500, "ServerError", err))
+        }
+      })
+  }
 }
 
 module.exports = new Group()
