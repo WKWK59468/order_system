@@ -85,6 +85,58 @@ class Group {
         }
       })
   }
+  addUsers = (req, res) => {
+    const body = req.body
+    const groupID = req.params.groupID
+    let cnt = 0
+
+    body.users.forEach((element) => {
+      if (!element.match(/^[0-9a-fA-F]{24}$/)) {
+        cnt += 1
+        res.status(500).json(Package.res_type(500, "userID Format Error", null))
+      }
+    })
+
+    const data = {
+      users: body.users,
+    }
+
+    if (cnt === 0) {
+      groupModel
+        .addUsers(groupID, data)
+        .then((result) => {
+          res.status(200).json(Package.res_type(200, "OK", null))
+        })
+        .catch((err) => {
+          if (err === "UpdateError") {
+            res.status(400).json(Package.res_type(400, err, null))
+          } else {
+            res.status(500).json(Package.res_type(500, "ServerError", err))
+          }
+        })
+    }
+  }
+  deleteUsers = (req, res) => {
+    const groupID = req.params.groupID
+    const body = req.body
+
+    const data = {
+      users: body.users,
+    }
+
+    groupModel
+      .deleteUsers(groupID, data)
+      .then((result) => {
+        res.ststus(200).json(Package.res_type(200, "OK", null))
+      })
+      .catch((err) => {
+        if (err === "UpdateError") {
+          res.status(400).json(Package.res_type(400, err, null))
+        } else {
+          res.status(500).json(Package.res_type(500, "ServerError", err))
+        }
+      })
+  }
 }
 
 module.exports = new Group()
