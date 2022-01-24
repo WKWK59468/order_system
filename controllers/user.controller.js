@@ -1,18 +1,21 @@
 const userModels = require("../models/user.model")
 const myPackage = require("../function_package")
+const bcrypt = require("bcrypt")
 
 class UserController {
-  addUser = (req, res) => {
+  addUser = async (req, res) => {
     const body = req.body
     const name = body.name
     const email = body.email
     const password = body.password
     const role = body.role
+    const salt = await bcrypt.genSalt(10);
+    const hashpwd = await bcrypt.hash(password, salt)
 
     const data = {
       name: name,
       email: email,
-      password: password,
+      password: hashpwd,
       role: role,
     }
 
