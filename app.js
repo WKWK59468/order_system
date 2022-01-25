@@ -1,6 +1,5 @@
 const express = require("express")
 const http = require("http")
-const path = require("path")
 const cookieParser = require("cookie-parser")
 const logger = require("morgan")
 const cors = require("cors")
@@ -20,7 +19,6 @@ app.use(
 )
 app.use(express.json())
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, "view")))
 
 // Router
 app.use("/api", index)
