@@ -1,5 +1,5 @@
 const groupModel = require("../models/group.model")
-const Package = require("../function_package")
+const fun = require("../function_package")
 class Group {
   addGroup = (req, res) => {
     const body = req.body
@@ -13,23 +13,23 @@ class Group {
     groupModel
       .addGroup(data)
       .then((result) => {
-        res.status(201).json(Package.res_type(201, "OK", null))
+        res.status(201).json(fun.res_type(201, "OK", null))
       })
       .catch((err) => {
-        res.status(500).json(Package.res_type(500, "ServerError", err))
+        res.status(500).json(fun.res_type(500, "ServerError", err))
       })
   }
   fetchAll = (req, res) => {
     groupModel
       .fetchAll()
       .then((result) => {
-        res.status(200).json(Package.res_type(200, "OK", result))
+        res.status(200).json(fun.res_type(200, "OK", result))
       })
       .catch((err) => {
         if (err === "NoData") {
-          res.status(404).json(Package.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(Package.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -39,13 +39,13 @@ class Group {
     groupModel
       .fetchOne(params)
       .then((result) => {
-        res.status(200).json(Package.res_type(200, "OK", result))
+        res.status(200).json(fun.res_type(200, "OK", result))
       })
       .catch((err) => {
         if (err === "NoData") {
-          res.status(404).json(Package.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(Package.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -56,13 +56,13 @@ class Group {
     groupModel
       .patchGroup(groupName, body)
       .then((result) => {
-        res.status(200).json(Package.res_type(200, "OK", null))
+        res.status(200).json(fun.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "查無此團體") {
-          res.status(404).json(Package.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(Package.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -75,13 +75,13 @@ class Group {
     groupModel
       .deleteGroup(data)
       .then((result) => {
-        res.status(200).json(Package.res_type(200, "OK", null))
+        res.status(200).json(fun.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "查無此團體") {
-          res.status(404).json(Package.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(Package.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -93,7 +93,7 @@ class Group {
     body.users.forEach((element) => {
       if (!element.match(/^[0-9a-fA-F]{24}$/)) {
         cnt += 1
-        res.status(500).json(Package.res_type(500, "userID Format Error", null))
+        res.status(500).json(fun.res_type(500, "userID Format Error", null))
       }
     })
 
@@ -105,13 +105,13 @@ class Group {
       groupModel
         .addUsers(groupID, data)
         .then((result) => {
-          res.status(200).json(Package.res_type(200, "OK", null))
+          res.status(200).json(fun.res_type(200, "OK", null))
         })
         .catch((err) => {
           if (err === "UpdateError") {
-            res.status(400).json(Package.res_type(400, err, null))
+            res.status(400).json(fun.res_type(400, err, null))
           } else {
-            res.status(500).json(Package.res_type(500, "ServerError", err))
+            res.status(500).json(fun.res_type(500, "ServerError", err))
           }
         })
     }
@@ -127,13 +127,13 @@ class Group {
     groupModel
       .deleteUsers(groupID, data)
       .then((result) => {
-        res.ststus(200).json(Package.res_type(200, "OK", null))
+        res.ststus(200).json(fun.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "UpdateError") {
-          res.status(400).json(Package.res_type(400, err, null))
+          res.status(400).json(fun.res_type(400, err, null))
         } else {
-          res.status(500).json(Package.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }

@@ -1,5 +1,5 @@
 const userModels = require("../models/user.model")
-const myPackage = require("../function_package")
+const fun = require("../function_package")
 const bcrypt = require("bcrypt")
 
 class UserController {
@@ -22,13 +22,13 @@ class UserController {
     userModels
       .addUser(data)
       .then((result) => {
-        res.status(201).json(myPackage.res_type(201, "OK", null))
+        res.status(201).json(fun.res_type(201, "OK", null))
       })
       .catch((err) => {
         if (err === "此email已經被註冊了!") {
-          res.status(400).json(myPackage.res_type(400, err, null))
+          res.status(400).json(fun.res_type(400, err, null))
         } else {
-          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -36,13 +36,13 @@ class UserController {
     userModels
       .fetchAll()
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", result))
+        res.status(200).json(fun.res_type(200, "OK", result))
       })
       .catch((err) => {
         if (err === "NoData") {
-          res.status(404).json(myPackage.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -52,13 +52,13 @@ class UserController {
     userModels
       .fetchOne(email)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", result))
+        res.status(200).json(fun.res_type(200, "OK", result))
       })
       .catch((err) => {
         if (err === "查無此Email") {
-          res.status(404).json(myPackage.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -69,13 +69,13 @@ class UserController {
     userModels
       .patchUser(email, body)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", null))
+        res.status(200).json(fun.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "查無此Email") {
-          res.status(404).json(myPackage.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
@@ -89,13 +89,13 @@ class UserController {
     userModels
       .deleteUser(data)
       .then((result) => {
-        res.status(200).json(myPackage.res_type(200, "OK", null))
+        res.status(200).json(fun.res_type(200, "OK", null))
       })
       .catch((err) => {
         if (err === "查無此Email") {
-          res.status(404).json(myPackage.res_type(404, err, null))
+          res.status(404).json(fun.res_type(404, err, null))
         } else {
-          res.status(500).json(myPackage.res_type(500, "ServerError", err))
+          res.status(500).json(fun.res_type(500, "ServerError", err))
         }
       })
   }
