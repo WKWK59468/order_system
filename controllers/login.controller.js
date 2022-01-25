@@ -21,12 +21,10 @@ class LoginController {
               let jwt_token = jwt.sign({ email: email, _id: result._id, name: result.name, role: result.role }, SECRET, { expiresIn: "1 day" })
               res.status(200).json(Package.res_type(200, "OK", jwt_token))
             } else {
-              console.log("PasswordError")
               res.status(400).json(Package.res_type(400, "PasswordError", null))
             }
           })
           .catch((err) => {
-            console.log(err)
             res.status(400).json(Package.res_type(400, "LoginError", null))
           })
       })
