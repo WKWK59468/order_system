@@ -27,7 +27,7 @@ class LoginController {
           })
           .catch((err) => {
             console.log(err)
-            res.status(400).json(Package.res_type(400, "PasswordError", null))
+            res.status(400).json(Package.res_type(400, "LoginError", null))
           })
       })
       .catch((err) => {
