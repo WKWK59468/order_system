@@ -9,11 +9,9 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
     },
     password: {
       type: String,
-      required: true,
     },
     role: {
       type: String,
@@ -24,10 +22,10 @@ const userSchema = new Schema(
     group: {
       type: String,
     },
-    google_ID: {
+    googleUserID: {
       type: String,
     },
-    line_ID: {
+    lineUserID: {
       type: String,
     },
   },
