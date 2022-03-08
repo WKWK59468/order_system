@@ -16,7 +16,7 @@ class UserController {
       name: name,
       email: email,
       password: hashpwd,
-      role: role,
+      role: role ? role : "user",
     }
 
     userModels
