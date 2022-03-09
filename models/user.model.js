@@ -1,3 +1,4 @@
+const { resetWatchers } = require("nodemon/lib/monitor/watch")
 const User = require("../schema/user.schema")
 
 const userCollection = {
@@ -65,6 +66,27 @@ const userCollection = {
           if (err) {
             reject(err)
           } else if (res.matchedCount === 0) {
+            reject("查無此Email")
+          } else {
+            resolve(res)
+          }
+        }
+      )
+    })
+  },
+  patchPassword:(email, password)=>{
+    return new Promise((resolve,reject)=>{
+      User.updateOne(
+        {
+          email:email
+        },
+        {
+          password:password
+        },
+        (err,res)=>{
+          if(err){
+            reject(err)
+          }else if(res.matchedCount === 0){
             reject("查無此Email")
           } else {
             resolve(res)
