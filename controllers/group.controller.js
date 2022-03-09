@@ -1,6 +1,6 @@
 const groupModel = require("../models/group.model")
 const fun = require("../function_package")
-class Group {
+class groupController {
   addGroup = (req, res) => {
     const body = req.body
     const name = body.name
@@ -139,4 +139,4 @@ class Group {
   }
 }
 
-module.exports = new Group()
+module.exports = new groupController()
