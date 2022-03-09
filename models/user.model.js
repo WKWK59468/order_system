@@ -2,7 +2,7 @@ const { resetWatchers } = require("nodemon/lib/monitor/watch")
 const User = require("../schema/user.schema")
 
 const userCollection = {
-  addUser: (data) => {
+  addUser: function (data) {
     return new Promise((resolve, reject) => {
       const userData = new User(data)
 
@@ -29,7 +29,7 @@ const userCollection = {
       )
     })
   },
-  fetchAll: () => {
+  fetchAll: function () {
     return new Promise((resolve, reject) => {
       User.find({}, (err, res) => {
         if (err) {
@@ -42,7 +42,7 @@ const userCollection = {
       })
     })
   },
-  fetchOne: (email) => {
+  fetchOne: function (email) {
     return new Promise((resolve, reject) => {
       User.findOne({ email: email }, (err, res) => {
         if (err) {
@@ -55,7 +55,7 @@ const userCollection = {
       })
     })
   },
-  patchUser: (email, data) => {
+  patchUser: function (email, data) {
     return new Promise((resolve, reject) => {
       User.updateOne(
         {
@@ -74,7 +74,7 @@ const userCollection = {
       )
     })
   },
-  patchPassword:(email, password)=>{
+  patchPassword: function (email, password) {
     return new Promise((resolve,reject)=>{
       User.updateOne(
         {
@@ -95,7 +95,7 @@ const userCollection = {
       )
     })
   },
-  deleteUser: (data) => {
+  deleteUser: function (data) {
     return new Promise((resolve, reject) => {
       User.deleteOne(
         {

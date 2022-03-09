@@ -1,7 +1,7 @@
 const Group = require("../schema/group.schema")
 
 const groupCollection = {
-  addGroup: (data) => {
+  addGroup: function (data) {
     const groupData = new Group(data)
     return new Promise((resolve, reject) => {
       groupData
@@ -14,7 +14,7 @@ const groupCollection = {
         })
     })
   },
-  fetchAll: () => {
+  fetchAll: function () {
     return new Promise((resolve, reject) => {
       Group.find({})
         .populate("users")
@@ -29,7 +29,7 @@ const groupCollection = {
         })
     })
   },
-  fetchOne: (data) => {
+  fetchOne: function (data) {
     return new Promise((resolve, reject) => {
       Group.findOne(data, (err, res) => {
         if (err) {
@@ -42,7 +42,7 @@ const groupCollection = {
       })
     })
   },
-  patchGroup: (name, data) => {
+  patchGroup: function (name, data) {
     return new Promise((resolve, reject) => {
       Group.updateOne(
         {
@@ -61,7 +61,7 @@ const groupCollection = {
       )
     })
   },
-  deleteGroup: (data) => {
+  deleteGroup: function (data) {
     return new Promise((resolve, reject) => {
       Group.deleteOne(data, (err, res) => {
         if (err) {
@@ -74,7 +74,7 @@ const groupCollection = {
       })
     })
   },
-  addUsers: (groupID, data) => {
+  addUsers: function (groupID, data) {
     return new Promise((resolve, reject) => {
       Group.find({ _id: groupID }, (err, res) => {
         if (err) {
@@ -103,7 +103,7 @@ const groupCollection = {
       })
     })
   },
-  deleteUsers: (groupID, data) => {
+  deleteUsers: function (groupID, data) {
     return new Promise((resolve, reject) => {
       Group.find({ _id: groupID }, (err, res) => {
         if (err) {
