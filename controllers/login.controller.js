@@ -31,7 +31,7 @@ function origin(res, email, password) {
       }
     })
 }
-
+// 暫緩
 function google(res, email, googleUsername, googleUserID) {
   userModels
     .fetchOne(email)
@@ -61,7 +61,7 @@ function google(res, email, googleUsername, googleUserID) {
       }
     })
 }
-
+// 暫緩
 function line(res, lineUsername, lineUserID) {
   userModels
     .fetchOne(email)
@@ -100,22 +100,21 @@ class LoginController {
       const password = body.password
 
       origin(res, email, password)
+      
+    // 暫緩
+    // } else if (body.loginType === "line") {
+    //   const email = body.email
+    //   const lineUsername = body.lineUsername
+    //   const lineUserID = body.lineUserID
 
-    } else if (body.loginType === "line") {
-      const email = body.email
-      const lineUsername = body.lineUsername
-      const lineUserID = body.lineUserID
-      const password = 123
+    //   line(res, email, lineUsername, lineUserID)
 
-      line(res, email, lineUsername, lineUserID)
+    // } else if (body.loginType === "google") {
+    //   const email = body.email
+    //   const googleUsername = body.googleUsername
+    //   const googleUserID = body.googleUserID
 
-    } else if (body.loginType === "google") {
-      const email = body.email
-      const googleUsername = body.googleUsername
-      const googleUserID = body.googleUserID
-      const password = 123
-
-      google(res, email, googleUsername, googleUserID)
+    //   google(res, email, googleUsername, googleUserID)
 
     } else {
       res.status(400).json(fun.res_type(400, "loginType Error", null))
