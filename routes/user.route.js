@@ -6,7 +6,7 @@ router.post("/", UserController.addUser)
 router.get("/", UserController.fetchAll)
 router.get("/:email", UserController.fetchOne)
 router.patch("/:email", UserController.patchUser)
-router.patch("/password/:email", UserController.patchPassword)
+router.patch("/:email/password", UserController.patchPassword)
 router.delete("/:email", UserController.deleteUser)
 
 module.exports = router
