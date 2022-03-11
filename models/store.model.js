@@ -26,6 +26,18 @@ const storeCollection = {
             )
         })
     },
+    addMeals: function(data){
+        return new Promise((resolve,reject)=>{
+            Store
+                .insertMany(data.meals)
+                .then((result)=>{
+                    resolve(result)
+                })
+                .catch((err)=>{
+                    reject(err)
+                })
+        })
+    },
     deleteOneByID: function(storeID){
         return new Promise((resolve,reject)=>{
             Store.findByIdAndDelete(storeID, (err,res) => {

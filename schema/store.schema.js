@@ -15,7 +15,11 @@ const storeSchema = new Schema(
     },
     img: {
         type:String,
-    }
+    },
+    meals: [{
+      type: Schema.Types.ObjectId,
+      ref: "meals",
+    }],
   },
   {
     timestamps: true,

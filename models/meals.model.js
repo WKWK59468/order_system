@@ -7,10 +7,6 @@ const mealsCollection = {
                 reject("price不可為空")
             } else if (!data.name) {
                 reject("name不可為空")
-            } else if (!data.store) {
-                reject("store不可為空")
-            } else if (!data.store.match(/^[0-9a-fA-F]{24}$/)) {
-                reject("storeID錯誤")
             } else {
                 Meals
                     .create(data)
@@ -25,7 +21,7 @@ const mealsCollection = {
     },
     fetchAll: function () {
         return new Promise((resolve, reject) => {
-            Meals.find({}).populate("store", ["name", "img"]).exec((err, res) => {
+            Meals.find({}, (err, res) => {
                 if (err) {
                     reject(err)
                 } else if (res.length) {
@@ -38,7 +34,7 @@ const mealsCollection = {
     },
     fetchOneById: function (id) {
         return new Promise((resolve, reject) => {
-            Meals.findById(id).populate("store", ["name", "img"]).exec((err, res) => {
+            Meals.findById(id, (err, res) => {
                 if (err) {
                     reject(err)
                 } else if (res) {

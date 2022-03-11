@@ -1,4 +1,3 @@
-const { resetWatchers } = require("nodemon/lib/monitor/watch")
 const User = require("../schema/user.schema")
 
 const userCollection = {

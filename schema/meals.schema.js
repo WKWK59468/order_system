@@ -11,11 +11,6 @@ const mealsSchema = new Schema(
       type: Number,
       required: true,
     },
-    store: [{
-      type: Schema.Types.ObjectId,
-      ref: "store",
-      required: true,
-    }],
   },
   {
     timestamps: true,
