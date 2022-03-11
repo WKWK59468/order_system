@@ -4,7 +4,6 @@ const User = require("../schema/user.schema")
 const userCollection = {
   addUser: function (data) {
     return new Promise((resolve, reject) => {
-      const userData = new User(data)
 
       User.count(
         {
@@ -16,8 +15,8 @@ const userCollection = {
           } else if (res > 0) {
             reject("此email已經被註冊了!")
           } else {
-            userData
-              .save()
+            User
+              .create(data)
               .then((result) => {
                 resolve(result)
               })
@@ -75,18 +74,18 @@ const userCollection = {
     })
   },
   patchPassword: function (email, password) {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
       User.updateOne(
         {
-          email:email
+          email: email
         },
         {
-          password:password
+          password: password
         },
-        (err,res)=>{
-          if(err){
+        (err, res) => {
+          if (err) {
             reject(err)
-          }else if(res.matchedCount === 0){
+          } else if (res.matchedCount === 0) {
             reject("查無此Email")
           } else {
             resolve(res)

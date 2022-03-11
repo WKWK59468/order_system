@@ -2,8 +2,6 @@ const Store = require("../schema/store.schema")
 
 const storeCollection = {
     addStore: function(data){
-        const storeData = new Store(data)
-
         return new Promise((resolve,reject)=>{
             Store.count(
                 {
@@ -15,8 +13,8 @@ const storeCollection = {
                     } else if (res > 0) {
                         reject("此商家已經存在!")
                     } else {
-                        storeData
-                          .save()
+                        Store
+                          .create(data)
                           .then((result) => {
                             resolve(result)
                           })

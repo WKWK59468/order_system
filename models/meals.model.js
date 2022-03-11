@@ -2,8 +2,6 @@ const Meals = require("../schema/meals.schema")
 
 const mealsCollection = {
     add: function (data) {
-        const mealsData = new Meals(data)
-
         return new Promise((resolve, reject) => {
             if (!data.price) {
                 reject("price不可為空")
@@ -14,8 +12,8 @@ const mealsCollection = {
             } else if (!data.store.match(/^[0-9a-fA-F]{24}$/)) {
                 reject("storeID錯誤")
             } else {
-                mealsData
-                    .save()
+                Meals
+                    .create(data)
                     .then((result) => {
                         resolve(result)
                     })

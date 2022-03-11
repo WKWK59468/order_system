@@ -2,10 +2,9 @@ const Group = require("../schema/group.schema")
 
 const groupCollection = {
   addGroup: function (data) {
-    const groupData = new Group(data)
     return new Promise((resolve, reject) => {
-      groupData
-        .save()
+      Group
+        .create(data)
         .then((result) => {
           resolve(result)
         })
